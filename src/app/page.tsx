@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import Proof from "@/components/Proof";
-import Orch from "@/components/Orch";
+import About from "@/components/About";
 import Outputs from "@/components/Outputs";
 import Plugins from "@/components/Plugins";
 import Closing from "@/components/Closing";
@@ -11,9 +11,9 @@ export default function Home() {
     <>
       <Hero />
       <Proof />
-      <Orch />
       <Outputs />
       <Plugins />
+      <About />
       <Closing />
       <Reveal />
     </>

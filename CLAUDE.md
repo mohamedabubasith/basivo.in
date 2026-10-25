@@ -23,14 +23,14 @@ the Claude Code plugins, and the developer tools. Visitors are developers arrivi
 
 ## UI Requirements
 
-One page, six sections, top to bottom:
+One page, six sections (the Orch canvas section was removed at the user's request), top to bottom:
 
 - **Hero**: headline "Pipelines that leave something behind.", the run receipt, phone and card drawn in HTML,
   CTAs to Orch and the plugins.
 - **Proof**: the oversized "$0.09" for one priced run, its steps, a link to per-node costs.
-- **Orch**: the flow canvas (GitHub Issue → AI Agent → Fix Code & Open PR → Comment on Issue) and the run log card.
 - **Outputs**: five staggered tiles (PR, MP4, Telegram post, deployed app, PNG).
 - **Plugins**: violet panel with install commands, bento of six plugins, row of three tools.
+- **About**: the builder's name, a short bio and profile links (GitHub, Hugging Face). No email unless asked.
 - **Closing**: "Run it on your own keys." CTA, then the footer.
 
 Look & feel: ink and warm paper alternating sections, violet `#6d4aff` as the only accent, light-weight grotesk

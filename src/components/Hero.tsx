@@ -1,5 +1,5 @@
 import Brand from "./Brand";
-import { nav } from "@/content";
+import { links, nav } from "@/content";
 
 export default function Hero() {
   return (
@@ -44,7 +44,7 @@ export default function Hero() {
         <h1>Pipelines that leave something behind.</h1>
         <p>A pull request, a video, a post, a deployed app. On your own keys.</p>
         <div className="cta">
-          <a className="btn btn-primary" href="#orch">Explore Orch</a>
+          <a className="btn btn-primary" href={links.orch}>Explore Orch</a>
           <a className="btn btn-ghost" href="#plugins">Claude Code plugins</a>
         </div>
         <span className="mono hero-run">RUN 2041 · 36s · $0.09</span>

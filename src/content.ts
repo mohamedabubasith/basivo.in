@@ -24,16 +24,10 @@ export const tools = [
   { name: "basivo-coding", note: "any LLM" },
 ].map((t) => ({ ...t, href: `${GH}/${t.name}` }));
 
-export const flow = [
-  { name: "GitHub Issue", kind: "trigger" },
-  { name: "AI Agent", kind: "tools, skills", active: true },
-  { name: "Fix Code & Open PR", kind: "repository" },
-  { name: "Comment on Issue", kind: "delivery" },
-];
-
 export const nav = [
-  { label: "Orch", href: "#orch" },
+  { label: "Orch", href: `${GH}/basivo-orch` },
   { label: "Plugins", href: "#plugins" },
   { label: "Tools", href: "#tools" },
+  { label: "About", href: "#about" },
   { label: "GitHub", href: GH },
 ];
