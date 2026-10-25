@@ -1,9 +1,6 @@
-import Image from "next/image";
-import demo from "../../public/assets/basivo.gif";
 import { plugins, tools } from "@/content";
 
 export default function Plugins() {
-  const [first, ...rest] = plugins;
   return (
     <section className="plugins" id="plugins">
       <div className="side">
@@ -20,14 +17,7 @@ export default function Plugins() {
       </div>
       <div className="main">
         <div className="bento rv">
-          <a className="cell big" href={first.href}>
-            <div><h3>{first.name}</h3><p>{first.text}</p></div>
-            <div className="shot">
-              {/* GIF stays unoptimized so the animation survives */}
-              <Image src={demo} alt="Basivo running a flow" unoptimized />
-            </div>
-          </a>
-          {rest.map((p) => (
+          {plugins.map((p) => (
             <a className="cell" href={p.href} key={p.name}><h3>{p.name}</h3><p>{p.text}</p></a>
           ))}
         </div>

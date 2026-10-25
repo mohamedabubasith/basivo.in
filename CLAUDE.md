@@ -23,26 +23,23 @@ the Claude Code plugins, and the developer tools. Visitors are developers arrivi
 
 ## UI Requirements
 
-One page, six sections (the Orch canvas section was removed at the user's request), top to bottom:
+One page, four sections, top to bottom. Basivo Orch is NOT on this site: no Orch section, tab, pipeline art,
+run receipt, $0.09 proof, outputs gallery or Orch demo media. Do not add any back.
 
-- **Hero**: headline "Pipelines that leave something behind.", the run receipt, phone and card drawn in HTML,
-  CTAs to Orch and the plugins.
-- **Proof**: the oversized "$0.09" for one priced run, its steps, a link to per-node costs.
-- **Outputs**: five staggered tiles (PR, MP4, Telegram post, deployed app, PNG).
-- **Plugins**: violet panel with install commands, bento of six plugins, row of three tools.
-- **About**: the builder's name, a short bio and profile links (GitHub, Hugging Face). No email unless asked.
-- **Closing**: "Run it on your own keys." CTA, then the footer.
+- **Hero**: "Open-source tools for AI engineers.", CTAs to the plugins and GitHub.
+- **Plugins**: violet panel with install commands, grid of six plugins (text only), row of three tools.
+- **About**: name, title, short bio, stack line, profile links (Portfolio, LinkedIn, GitHub, Medium, Hugging Face).
+  No email unless asked.
+- **Closing**: "Install one plugin and try it." CTA to the plugin marketplace, then the footer.
 
 Look & feel: ink and warm paper alternating sections, violet `#6d4aff` as the only accent, light-weight grotesk
 headlines, mono labels. No gradient text, no glow, no blobs.
 
-The only real figures are 36 seconds and $0.09 for one run (from the basivo-orch README). PR #42, run 2041 and
-the Telegram post are illustrative.
 
 ## Reference UI — LAW
 
 The reference UI lives in `design-refs/`: `reference.html` (the approved single-file page) and the generated
-section images `1-hero.jpg` to `4-outputs.jpg`. Every section must match `reference.html` exactly: layout, colors,
+section images `1-hero.jpg` to `4-outputs.jpg`. Sections that still exist must keep the visual language of `reference.html` (its Orch, Proof and Outputs sections were removed): layout, colors,
 spacing, typography. Design tokens live in `:root` and `@theme` in `src/app/globals.css`; style through those, not
 ad-hoc values. Anything the reference does not show must follow its visual language and be flagged as an
 extrapolation.
@@ -67,7 +64,6 @@ Every change is complete only when:
 
 ## Performance Budget
 
-- Images through `next/image` with static imports; the demo GIF stays `unoptimized` so it keeps animating.
 - No client JS except `src/components/Reveal.tsx` (scroll reveal). Keep it that way unless a feature needs more.
 - No dependency added without checking its size first.
 

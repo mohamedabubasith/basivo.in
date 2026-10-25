@@ -17,7 +17,7 @@ export default function About() {
           <h2>Mohamed Abu Basith</h2>
           <p className="muted">
             I build production-grade Gen AI systems, from agents and RAG to voice-to-voice conversational agents.
-            Basivo is where I open-source the tools: Orch, the Claude Code plugins and basivo-pii.
+            Basivo is where I open-source the tools: the Claude Code plugins and developer tools like basivo-pii.
           </p>
           <p className="mono stack">OpenAI · Anthropic · Bedrock · AgentCore · Strands · LangChain · LangGraph · MCP · RAG · pgvector</p>
         </div>

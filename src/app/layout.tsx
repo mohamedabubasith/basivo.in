@@ -16,10 +16,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://basivo.in"),
   title: "Basivo",
   description:
-    "Basivo builds agent pipelines that leave something behind: a pull request, a video, a post, a deployed app. Plus open-source Claude Code plugins.",
+    "Open-source Claude Code plugins and developer tools by Mohamed Abu Basith, Generative AI Engineer.",
   openGraph: {
     title: "Basivo",
-    description: "Pipelines that leave something behind. A pull request, a video, a post, a deployed app. On your own keys.",
+    description: "Open-source Claude Code plugins and developer tools.",
     url: "https://basivo.in",
   },
   twitter: { card: "summary_large_image" },

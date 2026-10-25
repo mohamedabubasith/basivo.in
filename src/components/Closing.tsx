@@ -7,11 +7,11 @@ export default function Closing() {
       <section className="close">
         <div className="wrap rv">
           <span className="label muted">Open source</span>
-          <h2>Run it on your own keys.</h2>
-          <p className="muted">Your keys, billed at the provider&apos;s price, with tokens and dollars on every node of every run.</p>
+          <h2>Install one plugin and try it.</h2>
+          <p className="muted">Every tool is free, on GitHub, and keeps your data in repos you own.</p>
           <div className="cta">
-            <a className="btn btn-light" href={links.orch}>Star Basivo Orch on GitHub</a>
-            <a className="link" href={links.orchLocal}>Run it locally <span aria-hidden="true">→</span></a>
+            <a className="btn btn-light" href={links.marketplace}>Browse the plugins on GitHub</a>
+            <a className="link" href="#about">About me <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </section>
