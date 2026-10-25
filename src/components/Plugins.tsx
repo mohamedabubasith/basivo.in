@@ -7,12 +7,7 @@ export default function Plugins() {
         <div className="rv">
           <span className="label">For Claude Code</span>
           <h2>Give Claude a browser, a memory and a studio.</h2>
-          <div className="code">
-            <i># add the marketplace once</i>
-            {"\nclaude plugin marketplace add mohamedabubasith/basivo-plugins\n\n"}
-            <i># then install any plugin</i>
-            {"\nclaude plugin install basivo-qa@basivo"}
-          </div>
+          <p className="side-note">Six plugins, one marketplace. Add it once, then install the ones you need.</p>
         </div>
       </div>
       <div className="main">
