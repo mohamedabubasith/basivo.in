@@ -1,0 +1,74 @@
+@AGENTS.md
+
+# basivo.in
+
+The public website for Basivo: one landing page presenting Basivo Orch (the agent pipeline platform) as the flagship,
+the Claude Code plugins, and the developer tools. Visitors are developers arriving from GitHub, social posts or search.
+
+## Stack
+
+- **Framework**: Next.js 16 (App Router), fully static (every route prerenders). Chosen over Vite because it is a
+  public marketing site: pre-rendered HTML for SEO and link previews, and room for more pages (blog, docs).
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4 is installed, but the page is styled by the hand-written CSS in `src/app/globals.css`,
+  ported verbatim from the reference so the design matches exactly. Tokens are exposed to Tailwind via `@theme`.
+- **Fonts**: Geist and Geist Mono via `next/font/google` (`--font-geist-sans`, `--font-geist-mono`).
+- **Key libraries**: none beyond the scaffold.
+
+## Commands
+
+- `npm run dev` — dev server at http://localhost:3000
+- `npm run build` — production build (must always pass)
+- `npm run lint` — lint
+
+## UI Requirements
+
+One page, six sections, top to bottom:
+
+- **Hero**: headline "Pipelines that leave something behind.", the run receipt, phone and card drawn in HTML,
+  CTAs to Orch and the plugins.
+- **Proof**: the oversized "$0.09" for one priced run, its steps, a link to per-node costs.
+- **Orch**: the flow canvas (GitHub Issue → AI Agent → Fix Code & Open PR → Comment on Issue) and the run log card.
+- **Outputs**: five staggered tiles (PR, MP4, Telegram post, deployed app, PNG).
+- **Plugins**: violet panel with install commands, bento of six plugins, row of three tools.
+- **Closing**: "Run it on your own keys." CTA, then the footer.
+
+Look & feel: ink and warm paper alternating sections, violet `#6d4aff` as the only accent, light-weight grotesk
+headlines, mono labels. No gradient text, no glow, no blobs.
+
+The only real figures are 36 seconds and $0.09 for one run (from the basivo-orch README). PR #42, run 2041 and
+the Telegram post are illustrative.
+
+## Reference UI — LAW
+
+The reference UI lives in `design-refs/`: `reference.html` (the approved single-file page) and the generated
+section images `1-hero.jpg` to `4-outputs.jpg`. Every section must match `reference.html` exactly: layout, colors,
+spacing, typography. Design tokens live in `:root` and `@theme` in `src/app/globals.css`; style through those, not
+ad-hoc values. Anything the reference does not show must follow its visual language and be flagged as an
+extrapolation.
+
+## Build Gate
+
+Every change is complete only when:
+
+1. `npm run build` passes with zero errors
+2. `npm run lint` passes
+3. The page was loaded and checked in a browser at 1440px and 390px (no horizontal scroll)
+
+## Performance Budget
+
+- Images through `next/image` with static imports; the demo GIF stays `unoptimized` so it keeps animating.
+- No client JS except `src/components/Reveal.tsx` (scroll reveal). Keep it that way unless a feature needs more.
+- No dependency added without checking its size first.
+
+## Conventions
+
+- One component per section in `src/components/`, PascalCase files; `src/app/page.tsx` only composes them.
+- Copy that repeats (nav, plugin and tool lists, flow nodes, links) lives in `src/content.ts`.
+- Static assets in `public/assets/`; favicon, apple icon and OG image use the `src/app/` file conventions.
+- Reveal-on-scroll: add class `rv` to an element. Hidden only under `html.js`, so content shows without JS.
+
+## Deploy
+
+GitHub `mohamedabubasith/basivo.in` (use only the mohamedabubasith account). Vercel project `basivo-in`: every push
+to `main` deploys to production at basivo.in; other branches get preview URLs.

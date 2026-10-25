@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Basivo</title>
+<meta name="description" content="Basivo builds agent pipelines that leave something behind: a pull request, a video, a post, a deployed app. Plus open-source Claude Code plugins.">
+<meta property="og:title" content="Basivo">
+<meta property="og:description" content="Pipelines that leave something behind. A pull request, a video, a post, a deployed app. On your own keys.">
+<meta property="og:image" content="https://basivo.in/assets/poster.jpg">
+<meta property="og:url" content="https://basivo.in">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e0d12">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0e0d12; --ink-2:#17151d; --ink-line:#2a2733;
+  --paper:#f4efe6; --paper-2:#ebe4d7; --paper-line:#d9d0c0;
+  --text-ink:#15131a; --muted-ink:#5f5a52;          /* on paper */
+  --text-paper:#f1ece3; --muted-paper:#a9a39a;      /* on ink */
+  --violet:#6d4aff; --violet-soft:#b9a8ff;
+  --ok:#2fb36b;
+  --r:14px;
+  --sans:Geist,system-ui,-apple-system,sans-serif;
+  --mono:"Geist Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--text-paper);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono);font-size:13px;letter-spacing:.04em}
+.label{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+h1,h2,h3{font-weight:300;letter-spacing:-.035em;line-height:1.02}
+h2{font-size:clamp(38px,5.4vw,68px)}
+section{padding:clamp(96px,12vw,160px) 0}
+.paper{background:var(--paper);color:var(--text-ink)}
+.paper .muted{color:var(--muted-ink)}
+.muted{color:var(--muted-paper)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;font:500 16px var(--sans);text-decoration:none;transition:background .2s,color .2s,border-color .2s,transform .2s;cursor:pointer}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--violet);color:#fff}
+.btn-primary:hover{background:#5a37f0}
+.btn-ghost{border:1px solid currentColor;color:var(--violet-soft)}
+.btn-ghost:hover{background:rgba(185,168,255,.08)}
+.btn-light{background:var(--text-paper);color:var(--ink)}
+.btn-light:hover{background:#fff}
+.link{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:500;text-decoration:none;border-bottom:2px solid currentColor;line-height:1.2}
+.link:hover{color:var(--violet)}
+
+/* nav */
+nav{position:absolute;inset:0 0 auto;z-index:5}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:88px}
+.brand{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:400;letter-spacing:-.02em;text-decoration:none}
+.brand img{width:34px;height:34px;border-radius:9px}
+nav ul{display:flex;gap:8px;list-style:none}
+nav ul a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;text-decoration:none;color:var(--muted-paper);transition:color .2s}
+nav ul a:hover{color:var(--text-paper)}
+@media (max-width:720px){nav ul li:not(:last-child){display:none}}
+
+/* 1 hero */
+.hero{position:relative;min-height:min(100svh,960px);display:flex;align-items:flex-end;padding:140px 0 72px;overflow:hidden;
+  background:radial-gradient(70% 60% at 72% 30%,#221e2b 0%,var(--ink) 70%)}
+.hero .wrap{width:100%;position:relative;z-index:2}
+.hero h1{font-size:clamp(48px,6.6vw,100px);max-width:12ch}
+.hero p{font-size:clamp(18px,1.6vw,21px);color:var(--muted-paper);margin:28px 0 40px;max-width:34ch}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero-run{position:absolute;right:24px;bottom:0;color:var(--muted-paper)}
+.desk{position:absolute;top:120px;right:3%;width:min(38vw,540px);height:640px;z-index:1;pointer-events:none}
+.receipt{position:absolute;top:0;left:6%;width:290px;padding:26px 24px 34px;background:#f3ede2;color:#2b2722;font:400 12.5px/1.75 var(--mono);
+  transform:rotate(-8deg);box-shadow:0 40px 80px -20px rgba(0,0,0,.7);
+  -webkit-mask:linear-gradient(#000 92%,transparent),conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/12px 100%;
+  -webkit-mask-composite:source-in;mask-composite:intersect}
+.receipt b{font-weight:500}
+.receipt .row{display:flex;justify-content:space-between;gap:12px}
+.receipt hr{border:0;border-top:1px dashed #b8ae9d;margin:10px 0}
+.receipt .total{font-size:15px;font-weight:500}
+.phone{position:absolute;right:2%;bottom:6%;width:230px;height:420px;border-radius:38px;background:#121116;border:6px solid #2c2a31;box-shadow:0 40px 90px -20px rgba(0,0,0,.8);transform:rotate(9deg);padding:56px 14px 14px}
+.bubble{background:#232129;border-radius:16px 16px 16px 4px;padding:12px 14px;font:400 12px/1.5 var(--mono);color:#e7e2d9}
+.bubble small{display:block;color:#8d8794;font-size:10.5px;margin-top:6px;text-align:right}
+.bubble + .bubble{margin-top:10px}
+.card-tag{position:absolute;left:14%;bottom:4%;width:220px;padding:18px;background:#e9e2d4;color:#2b2722;border-radius:6px;transform:rotate(4deg);box-shadow:0 30px 60px -20px rgba(0,0,0,.7)}
+.card-tag strong{display:block;font:400 20px var(--sans);letter-spacing:-.02em}
+@media (max-width:980px){
+  .desk{position:relative;inset:auto;width:100%;height:460px;margin-top:56px}
+  .hero{display:block;padding-top:120px}
+  .hero-run{position:static;margin-top:32px;display:block}
+}
+@media (max-width:520px){.receipt{left:0;width:250px}.phone{width:190px;height:350px}.card-tag{display:none}}
+
+/* 2 proof */
+.proof{text-align:center}
+.proof .big{font-size:clamp(120px,24vw,300px);font-weight:300;letter-spacing:-.06em;line-height:.9;margin:28px 0 40px}
+.proof .big span{color:var(--violet)}
+.steps{display:flex;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+.steps li{list-style:none;padding:6px 22px;font:400 15px var(--mono);color:var(--muted-ink)}
+.steps li + li{border-left:1px solid var(--paper-line)}
+@media (max-width:620px){.steps{flex-direction:column;gap:4px}.steps li + li{border-left:0}}
+
+/* 3 orch */
+.orch{background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M48 0H0v48' fill='none' stroke='%23ffffff' stroke-opacity='.05'/%3E%3C/svg%3E")}
+.orch .wrap{display:grid;grid-template-columns:1.7fr 1fr;gap:64px;align-items:center}
+.stack{position:relative;padding-bottom:96px}
+.canvas{position:relative;z-index:2;background:#ebe9ee;border-radius:var(--r);padding:clamp(28px,5vw,64px) clamp(16px,3vw,36px);min-height:380px;display:flex;align-items:center;box-shadow:0 50px 100px -40px rgba(0,0,0,.8)}
+.flow{display:flex;align-items:center;width:100%;gap:0}
+.node{flex:1;min-width:0;background:#f7f5f0;border:1.5px solid #2b2733;color:#1c1a21;border-radius:8px;padding:14px 10px;text-align:center;font-size:14px;line-height:1.3}
+.node small{display:block;font:400 10.5px var(--mono);color:#8a8494;margin-top:4px}
+.node.on{border-color:var(--violet);box-shadow:0 0 0 4px rgba(109,74,255,.14)}
+.arrow{flex:0 0 22px;height:1.5px;background:#2b2733;position:relative}
+.arrow::after{content:"";position:absolute;right:0;top:-4px;border:4.5px solid transparent;border-left:7px solid #2b2733;border-right:0}
+.runlog{position:absolute;z-index:3;right:-24px;bottom:0;width:320px;background:var(--ink-2);border:1px solid var(--ink-line);border-radius:var(--r);padding:12px 20px;font:400 12.5px var(--mono);color:var(--muted-paper);box-shadow:0 30px 60px -20px rgba(0,0,0,.8)}
+.runlog .r:first-child{border-top:0}
+.runlog .r{display:grid;grid-template-columns:1fr auto;gap:12px;padding:9px 0;border-top:1px solid var(--ink-line)}
+.runlog .r span:last-child{display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.runlog .t{color:var(--text-paper)}
+.orch h2{font-size:clamp(36px,4.4vw,56px)}
+.orch .label{color:var(--violet-soft)}
+.orch p{margin:24px 0 36px;max-width:32ch}
+@media (max-width:980px){.orch .wrap{grid-template-columns:1fr}.stack{padding-bottom:0}.runlog{position:relative;right:auto;width:auto;margin:-24px 16px 0}}
+@media (max-width:620px){.flow{flex-direction:column;gap:0}.node{width:100%}.arrow{flex:0 0 22px;width:1.5px;height:22px}.arrow::after{right:-4px;top:auto;bottom:0;border:4.5px solid transparent;border-top:7px solid #2b2733;border-bottom:0}}
+
+/* 4 outputs */
+.outputs .head{max-width:520px}
+.outputs .head p{margin-top:20px;font-size:19px}
+.masonry{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;margin-top:72px;align-items:start}
+.tile{text-decoration:none;display:block}
+.tile:nth-child(2){margin-top:110px}.tile:nth-child(3){margin-top:0}.tile:nth-child(4){margin-top:-90px}.tile:nth-child(5){margin-top:150px}
+.tile .frame{aspect-ratio:1;border-radius:var(--r);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:14px;transition:transform .3s}
+.tile:hover .frame{transform:translateY(-4px)}
+.tile .cap{margin-top:14px;font:400 14px var(--mono)}
+.tile .cap span{color:var(--violet)}
+.f-violet{background:var(--violet)}.f-ink{background:var(--ink)}.f-stone{background:#cfc6d6}.f-sand{background:var(--paper-2)}
+.mini{width:100%;background:#fff;border-radius:6px;font:400 10px/1.5 var(--mono);color:#333;padding:10px;box-shadow:0 10px 30px -10px rgba(0,0,0,.35)}
+.mini .bar{height:6px;border-radius:3px;background:#e3e0e8;margin:5px 0}
+.mini .add{background:#d8f3e1}.mini .del{background:#fbdcdc}
+.mini .merge{display:inline-block;margin-top:6px;background:#2fa356;color:#fff;border-radius:4px;padding:2px 7px}
+.tile .frame img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+.play{position:absolute;width:52px;height:52px;border-radius:50%;background:rgba(14,13,18,.8);display:grid;place-items:center}
+.play::after{content:"";border-left:14px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
+.f-ink{position:relative}
+.tg{width:78%;background:#1d1b22;border-radius:22px;padding:14px 10px;color:#eee;font:400 10px/1.5 var(--sans)}
+.tg .m{background:#2b2833;border-radius:10px;padding:8px}
+.tg .m b{color:#8fb4ff;font-weight:500}
+.browser{width:100%;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 10px 30px -10px rgba(0,0,0,.35)}
+.browser .top{height:18px;background:#ecebef;display:flex;gap:4px;align-items:center;padding:0 7px}
+.browser .top i{width:6px;height:6px;border-radius:50%;background:#c9c6cf}
+.browser .body{padding:22px 14px;text-align:center;font:400 12px/1.4 var(--sans);color:#222}
+.browser .body b{display:block;font-size:15px;font-weight:500;letter-spacing:-.02em;margin-bottom:8px}
+.browser .body span{display:inline-block;margin-top:10px;background:#15131a;color:#fff;border-radius:999px;padding:3px 10px;font-size:10px}
+.social{width:100%;aspect-ratio:1.91;background:var(--ink);border-radius:6px;color:var(--text-paper);padding:12px;display:flex;flex-direction:column;justify-content:space-between;font:300 15px/1.1 var(--sans);letter-spacing:-.02em}
+.social small{font:400 8.5px var(--mono);color:var(--violet-soft);letter-spacing:.05em}
+@media (max-width:980px){.masonry{grid-template-columns:repeat(2,1fr)}.tile:nth-child(n){margin-top:0}.tile:nth-child(even){margin-top:56px}}
+@media (max-width:480px){.masonry{gap:18px}}
+
+/* 5 plugins */
+.plugins{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);padding:0}
+.plugins .side{background:var(--violet);color:#fff;padding:clamp(72px,9vw,140px) clamp(24px,4vw,64px)}
+.plugins .side .label{opacity:.8}
+.plugins .side h2{font-size:clamp(36px,4vw,54px);margin:20px 0 36px}
+.code{background:var(--ink);color:#e9e4ff;border-radius:var(--r);padding:20px 22px;font:400 13px/1.8 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
+.code i{font-style:normal;color:#8b84a3}
+.plugins .main{background:var(--paper);color:var(--text-ink);padding:clamp(72px,9vw,140px) clamp(24px,4vw,64px)}
+.bento{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--paper-line);border-left:1px solid var(--paper-line)}
+.cell{border-right:1px solid var(--paper-line);border-bottom:1px solid var(--paper-line);padding:28px 24px;text-decoration:none;display:flex;flex-direction:column;gap:8px;transition:background .2s;min-height:170px}
+.cell:hover{background:var(--paper-2)}
+.cell h3{font-size:22px;font-weight:400;letter-spacing:-.02em}
+.cell p{font-size:15px;color:var(--muted-ink);line-height:1.5}
+.cell.big{grid-column:span 2;grid-row:span 2;justify-content:space-between}
+.cell .shot{margin-top:20px;border-radius:10px;overflow:hidden;border:1px solid var(--paper-line)}
+.tools{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:36px;align-items:center}
+.tools .label{color:var(--muted-ink)}
+.tools a{display:inline-flex;align-items:center;min-height:44px;font:400 15px var(--mono);text-decoration:none;border-bottom:1px solid var(--paper-line)}
+.tools a:hover{color:var(--violet);border-color:var(--violet)}
+.tools a small{color:var(--muted-ink);margin-left:8px;font-size:13px}
+@media (max-width:1040px){.plugins{grid-template-columns:1fr}}
+@media (max-width:720px){.bento{grid-template-columns:1fr}.cell.big{grid-column:auto;grid-row:auto}}
+
+/* 6 close */
+.close{text-align:center;background:radial-gradient(60% 70% at 50% 100%,#2a1f5c 0%,var(--ink) 70%);padding-bottom:120px}
+.close h2{font-size:clamp(44px,7vw,96px);max-width:14ch;margin:24px auto 0}
+.close p{margin:24px auto 40px;max-width:44ch}
+.close .cta{justify-content:center;align-items:center;gap:28px}
+.close .link{color:var(--text-paper)}
+.close .link:hover{color:var(--violet-soft)}
+footer{border-top:1px solid var(--ink-line);padding:36px 0;color:var(--muted-paper);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer ul{display:flex;gap:4px;list-style:none;flex-wrap:wrap}
+footer ul a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;text-decoration:none}
+footer ul a:hover{color:var(--text-paper)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}.btn,.tile .frame{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <nav aria-label="Main">
+    <div class="wrap">
+      <a class="brand" href="#"><img src="assets/icon.png" alt="" width="34" height="34">Basivo</a>
+      <ul>
+        <li><a href="#orch">Orch</a></li>
+        <li><a href="#plugins">Plugins</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="https://github.com/mohamedabubasith">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="desk" aria-hidden="true">
+    <div class="receipt">
+      <div class="row"><b>BASIVO ORCH</b><span>RUN 2041</span></div>
+      <hr>
+      <div class="row"><span>trigger</span><span>github.issue</span></div>
+      <div class="row"><span>ai agent</span><span>done</span></div>
+      <div class="row"><span>fix code + open pr</span><span>done</span></div>
+      <div class="row"><span>comment on issue</span><span>done</span></div>
+      <hr>
+      <div class="row"><span>duration</span><span>36 s</span></div>
+      <div class="row total"><span>TOTAL</span><span>$0.09</span></div>
+      <hr>
+      <div>PR OPENED. THE PR IS REAL.</div>
+    </div>
+    <div class="card-tag"><span class="mono">AGENT OUTPUT</span><strong>Basivo</strong><span class="mono">2041.</span></div>
+    <div class="phone">
+      <div class="bubble">Run 2041 finished.<br>PR #42 opened.<small>09:00</small></div>
+      <div class="bubble">Comment posted on the issue.<small>09:00</small></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h1>Pipelines that leave something behind.</h1>
+    <p>A pull request, a video, a post, a deployed app. On your own keys.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#orch">Explore Orch</a>
+      <a class="btn btn-ghost" href="#plugins">Claude Code plugins</a>
+    </div>
+    <span class="mono hero-run">RUN 2041 · 36s · $0.09</span>
+  </div>
+</header>
+
+<section class="paper proof">
+  <div class="wrap rv">
+    <span class="label">One run, priced</span>
+    <p class="big">$0<span>.</span>09</p>
+    <ul class="steps">
+      <li>Ticket in</li><li>Agent edits repo</li><li>PR opened</li><li>36 seconds</li>
+    </ul>
+    <a class="link" href="https://github.com/mohamedabubasith/basivo-orch#every-run-is-observable">See what every node costs <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<section class="orch" id="orch">
+  <div class="wrap">
+    <div class="stack rv">
+      <div class="canvas">
+        <div class="flow" role="img" aria-label="Flow: GitHub Issue, then AI Agent, then Fix Code and Open PR, then Comment on Issue">
+          <div class="node">GitHub Issue<small>trigger</small></div><div class="arrow"></div>
+          <div class="node on">AI Agent<small>tools, skills</small></div><div class="arrow"></div>
+          <div class="node">Fix Code &amp; Open PR<small>repository</small></div><div class="arrow"></div>
+          <div class="node">Comment on Issue<small>delivery</small></div>
+        </div>
+      </div>
+      <div class="runlog" aria-hidden="true">
+        <div class="r"><span>GitHub Issue</span><span><i class="dot"></i>done</span></div>
+        <div class="r"><span>AI Agent</span><span><i class="dot"></i>done</span></div>
+        <div class="r"><span>Fix Code &amp; Open PR</span><span><i class="dot"></i>done</span></div>
+        <div class="r"><span>Comment on Issue</span><span><i class="dot"></i>done</span></div>
+        <div class="r t"><span>Run total</span><span>36 s · $0.09</span></div>
+      </div>
+    </div>
+    <div class="rv">
+      <span class="label">Basivo Orch</span>
+      <h2 style="margin-top:18px">Draw it once.<br>It runs without you.</h2>
+      <p class="muted">18 node types, 6 triggers, and the cost of every call on the run page. A free coding agent is built in, so a key is optional.</p>
+      <div class="cta">
+        <a class="btn btn-ghost" style="color:var(--text-paper)" href="https://github.com/mohamedabubasith/basivo-orch">View on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="paper outputs">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="label">Outputs</span>
+      <h2 style="margin-top:18px">Not a log line.<br>A thing.</h2>
+      <p class="muted">Every flow ends in something you can open.</p>
+    </div>
+    <div class="masonry">
+      <a class="tile rv" href="https://github.com/mohamedabubasith/basivo-orch">
+        <div class="frame f-violet"><div class="mini">
+          <b>Fix login redirect loop #42</b>
+          <div class="bar add" style="width:80%"></div><div class="bar del" style="width:55%"></div><div class="bar add" style="width:68%"></div><div class="bar" style="width:40%"></div>
+          <span class="merge">Open</span>
+        </div></div>
+        <p class="cap"><span>1.</span> Pull request</p>
+      </a>
+      <a class="tile rv" href="https://github.com/mohamedabubasith/basivo-orch/raw/main/docs/media/basivo.mp4">
+        <div class="frame f-ink"><img src="assets/poster.jpg" alt="Frame from the Basivo film"><span class="play" aria-hidden="true"></span></div>
+        <p class="cap"><span>2.</span> Rendered MP4</p>
+      </a>
+      <a class="tile rv" href="https://github.com/mohamedabubasith/basivo-orch">
+        <div class="frame f-stone"><div class="tg">
+          <div class="m"><b>Basivo Daily</b><br>Today's build notes are out. Video attached.<br><span style="color:#8fb4ff">▶ 0:42</span></div>
+        </div></div>
+        <p class="cap"><span>3.</span> Telegram post</p>
+      </a>
+      <a class="tile rv" href="https://github.com/mohamedabubasith/basivo-orch">
+        <div class="frame f-violet"><div class="browser"><div class="top"><i></i><i></i><i></i></div>
+          <div class="body"><b>Your landing page</b>Built from one chat.<br><span>Deploy</span></div></div></div>
+        <p class="cap"><span>4.</span> Deployed app</p>
+      </a>
+      <a class="tile rv" href="https://github.com/mohamedabubasith/basivo-studio">
+        <div class="frame f-sand"><div class="social"><small>BASIVO STUDIO</small>Type that is always spelled right.</div></div>
+        <p class="cap"><span>5.</span> PNG, type always right</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="plugins" id="plugins">
+  <div class="side">
+    <div class="rv">
+      <span class="label">For Claude Code</span>
+      <h2>Give Claude a browser, a memory and a studio.</h2>
+      <div class="code"><i># add the marketplace once</i>
+claude plugin marketplace add mohamedabubasith/basivo-plugins
+
+<i># then install any plugin</i>
+claude plugin install basivo-qa@basivo</div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="bento rv">
+      <a class="cell big" href="https://github.com/mohamedabubasith/basivo-qa">
+        <div><h3>basivo-qa</h3><p>Tests your web app in a real browser and hands Claude a verdict it can fix from, in the same session.</p></div>
+        <div class="shot"><img src="assets/basivo.gif" alt="Basivo running a flow" loading="lazy" width="860" height="484"></div>
+      </a>
+      <a class="cell" href="https://github.com/mohamedabubasith/basivo-operator"><h3>basivo-operator</h3><p>Tasks in your own logged-in browser. Draft first, confirm before anything irreversible.</p></a>
+      <a class="cell" href="https://github.com/mohamedabubasith/basivo-journal"><h3>basivo-journal</h3><p>Every session saved to your private repo, secrets masked, searchable.</p></a>
+      <a class="cell" href="https://github.com/mohamedabubasith/basivo-memory"><h3>basivo-memory</h3><p>One memory across related repos: rules, decisions, docs.</p></a>
+      <a class="cell" href="https://github.com/mohamedabubasith/basivo-studio"><h3>basivo-studio</h3><p>Logos, icons and social images, rendered to exact-size PNGs.</p></a>
+      <a class="cell" href="https://github.com/mohamedabubasith/basivo-promo"><h3>basivo-promo</h3><p>Animated promo videos of your app, with local voiceover.</p></a>
+    </div>
+    <div class="tools" id="tools">
+      <span class="label">Tools</span>
+      <a href="https://github.com/mohamedabubasith/basivo-pii">basivo-pii<small>PII masking</small></a>
+      <a href="https://github.com/mohamedabubasith/basivo-auth">basivo-auth<small>FastAPI auth</small></a>
+      <a href="https://github.com/mohamedabubasith/basivo-coding">basivo-coding<small>any LLM</small></a>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap rv">
+    <span class="label muted">Open source</span>
+    <h2>Run it on your own keys.</h2>
+    <p class="muted">Your keys, billed at the provider's price, with tokens and dollars on every node of every run.</p>
+    <div class="cta">
+      <a class="btn btn-light" href="https://github.com/mohamedabubasith/basivo-orch">Star Basivo Orch on GitHub</a>
+      <a class="link" href="https://github.com/mohamedabubasith/basivo-orch#running-it-locally">Run it locally <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/icon.png" alt="" width="34" height="34">Basivo</a>
+    <ul>
+      <li><a href="#orch">Orch</a></li><li><a href="#plugins">Plugins</a></li><li><a href="#tools">Tools</a></li><li><a href="https://github.com/mohamedabubasith">GitHub</a></li>
+    </ul>
+    <span>© 2026 Basivo · basivo.in</span>
+  </div>
+</footer>
+
+<script>
+// reveal on scroll; content stays visible if IntersectionObserver is missing
+if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll('.rv').forEach(el => el.classList.add('in'));
+}
+</script>
+</body>
+</html>
