@@ -19,7 +19,7 @@ export default function About() {
             I build production-grade Gen AI systems, from agents and RAG to voice-to-voice conversational agents.
             Basivo is where I open-source the tools: Orch, the Claude Code plugins and basivo-pii.
           </p>
-          <p className="mono stack">OpenAI · Anthropic · Bedrock · Strands · LangGraph · MCP · Qdrant · pgvector</p>
+          <p className="mono stack">OpenAI · Anthropic · Bedrock · AgentCore · Strands · LangChain · LangGraph · MCP · RAG · pgvector</p>
         </div>
         <ul className="rv">
           {profiles.map((p) => (
