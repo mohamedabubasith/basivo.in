@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Basivo</title>
+<meta name="description" content="Basivo builds agent tools that end in something real: Basivo Orch for agent pipelines, plus open-source Claude Code plugins and developer tools.">
+<meta property="og:title" content="Basivo">
+<meta property="og:description" content="Agent pipelines that end in something real: a pull request, a video, a post, a deployed app.">
+<meta property="og:image" content="https://basivo.in/assets/poster.jpg">
+<meta property="og:url" content="https://basivo.in">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --bg-soft:#f7f6fb; --card:#ffffff; --text:#14121f; --muted:#5d5a6e;
+  --line:#e7e4f0; --accent:#6d4aff; --accent-2:#a855f7; --code-bg:#14121f; --code-text:#ece9ff;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0d0b16; --bg-soft:#13101f; --card:#171427; --text:#f1effa; --muted:#a29fb6;
+    --line:#2a2640; --accent:#8b6bff; --accent-2:#c084fc; --code-bg:#0a0812; --code-text:#ece9ff; }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;text-decoration:none}
+.brand img{width:30px;height:30px;border-radius:8px}
+nav ul{display:flex;gap:28px;list-style:none;font-size:15px;color:var(--muted)}
+nav ul a{text-decoration:none}
+nav ul a:hover{color:var(--text)}
+@media (max-width:640px){ nav ul li:not(:last-child){display:none} }
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 6px 20px -6px color-mix(in srgb,var(--accent) 60%,transparent)}
+.btn-ghost{border:1px solid var(--line);background:var(--card)}
+
+/* hero */
+.hero{padding:96px 0 72px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-40% -20% auto;height:600px;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 18%,transparent),transparent);z-index:-1}
+.eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);padding:6px 12px;border-radius:999px;margin-bottom:24px}
+h1{font-size:clamp(38px,6.5vw,68px);line-height:1.05;letter-spacing:-.03em;font-weight:800;max-width:860px;margin:0 auto}
+h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:640px;margin:24px auto 36px}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* sections */
+section{padding:88px 0}
+section.soft{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+h2{font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;line-height:1.15;font-weight:800}
+.sub{color:var(--muted);font-size:18px;max-width:640px;margin-top:12px}
+.head{margin-bottom:48px}
+
+/* orch */
+.orch{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
+@media (max-width:900px){ .orch{grid-template-columns:1fr} }
+.orch-media{border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 60px -30px rgba(40,20,120,.35)}
+.list{list-style:none;margin:28px 0 32px;display:grid;gap:14px}
+.list li{display:flex;gap:12px;align-items:flex-start}
+.list li::before{content:"";flex:none;width:20px;height:20px;margin-top:3px;border-radius:6px;background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+.list b{font-weight:600}
+.stats{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:32px}
+.stats div{font-size:14px;color:var(--muted)}
+.stats strong{display:block;font-size:28px;color:var(--text);font-weight:800;letter-spacing:-.02em}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:10px;text-decoration:none;transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card h3{font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px}
+.card p{color:var(--muted);font-size:15px;flex:1}
+.tag{font-size:12px;font-weight:600;color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);padding:3px 9px;border-radius:999px}
+.more{font-size:14px;font-weight:600;color:var(--accent)}
+
+/* install */
+.install{margin-top:40px;background:var(--code-bg);color:var(--code-text);border-radius:14px;padding:24px 26px;font-size:14.5px;overflow-x:auto}
+.install .c{color:#8c87a8}
+.install pre{margin:0;white-space:pre}
+
+/* footer */
+footer{padding:48px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer a{text-decoration:none}
+footer a:hover{color:var(--text)}
+footer .links{display:flex;gap:24px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/icon.png" alt="">Basivo</a>
+    <ul>
+      <li><a href="#orch">Orch</a></li>
+      <li><a href="#plugins">Plugins</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="https://github.com/mohamedabubasith" class="btn btn-ghost" style="padding:8px 14px">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Open source, built for agents</span>
+    <h1>Agent tools that end in <span>something real</span></h1>
+    <p class="lead">A pull request, a rendered video, a post in a channel, a deployed app. Basivo builds the pipelines and the Claude Code plugins that get you there, on your own keys.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#orch">Explore Basivo Orch</a>
+      <a class="btn btn-ghost" href="#plugins">Claude Code plugins</a>
+    </div>
+  </div>
+</header>
+
+<section id="orch" class="soft">
+  <div class="wrap orch">
+    <div>
+      <span class="tag">Flagship</span>
+      <h2 style="margin-top:14px">Basivo Orch</h2>
+      <p class="sub">Draw a pipeline on a canvas and it runs without you. What comes out the other end is a thing, not a log line.</p>
+      <ul class="list">
+        <li><div><b>Issue to pull request.</b> A GitHub issue or Jira ticket triggers an agent that edits the repo, opens the PR and comments back.</div></li>
+        <li><div><b>Narrated video.</b> An LLM writes the script, the speech node voices it, Remotion renders it, and it posts to Telegram or Discord.</div></li>
+        <li><div><b>App Builder.</b> Describe a frontend in chat, watch it build at a real address, deploy the version you like.</div></li>
+        <li><div><b>Six triggers.</b> Hosted chat, webhook, schedule, Telegram bot, API call, or you pressing run.</div></li>
+      </ul>
+      <div class="stats">
+        <div><strong>18</strong>node types</div>
+        <div><strong>6</strong>triggers</div>
+        <div><strong>$</strong>cost on every node</div>
+      </div>
+      <div class="cta" style="justify-content:flex-start">
+        <a class="btn btn-primary" href="https://github.com/mohamedabubasith/basivo-orch">View on GitHub</a>
+        <a class="btn btn-ghost" href="https://github.com/mohamedabubasith/basivo-orch/raw/main/docs/media/basivo.mp4">Watch the film</a>
+      </div>
+    </div>
+    <div class="orch-media">
+      <img src="assets/basivo.gif" alt="Basivo Orch: triggers, the canvas, the agent, the renders, and where the result lands" width="860" height="484" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section id="plugins">
+  <div class="wrap">
+    <div class="head">
+      <h2>Claude Code plugins</h2>
+      <p class="sub">Give Claude memory, a browser, a QA team and a design studio. Each plugin runs locally and keeps your data in repos you own.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/mohamedabubasith/basivo-qa"><h3>basivo-qa <span class="tag">testing</span></h3><p>Tests your web app in a real browser and hands Claude a verdict it can fix from, in the same session.</p><span class="more">View repo</span></a>
+      <a class="card" href="https://github.com/mohamedabubasith/basivo-operator"><h3>basivo-operator <span class="tag">automation</span></h3><p>Does plain-language tasks on any website inside your own logged-in browser. Draft-first, with a confirmation before anything irreversible.</p><span class="more">View repo</span></a>
+      <a class="card" href="https://github.com/mohamedabubasith/basivo-journal"><h3>basivo-journal <span class="tag">productivity</span></h3><p>Saves every session to your private GitHub repo, with secrets masked. Search past work and view a dashboard of hours, projects and tools.</p><span class="more">View repo</span></a>
+      <a class="card" href="https://github.com/mohamedabubasith/basivo-memory"><h3>basivo-memory <span class="tag">memory</span></h3><p>Shared memory across related repos. Pinned rules, decisions, docs and past chats from every repo in one space.</p><span class="more">View repo</span></a>
+      <a class="card" href="https://github.com/mohamedabubasith/basivo-studio"><h3>basivo-studio <span class="tag">design</span></h3><p>Logos, icons, covers and social images designed in SVG and HTML, then rendered to exact-size PNGs. Text is always spelled right.</p><span class="more">View repo</span></a>
+      <a class="card" href="https://github.com/mohamedabubasith/basivo-promo"><h3>basivo-promo <span class="tag">video</span></h3><p>Animated promo videos of your web, mobile and desktop apps, with local voiceover and generated music.</p><span class="more">View repo</span></a>
+    </div>
+    <div class="install mono">
+<pre><span class="c"># add the Basivo marketplace once</span>
+claude plugin marketplace add mohamedabubasith/basivo-plugins
+
+<span class="c"># then install any plugin</span>
+claude plugin install basivo-qa@basivo</pre>
+    </div>
+  </div>
+</section>
+
+<section id="tools" class="soft">
+  <div class="wrap">
+    <div class="head">
+      <h2>Developer tools</h2>
+      <p class="sub">The building blocks Basivo runs on, open for you to use.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/mohamedabubasith/basivo-pii"><h3>basivo-pii <span class="tag">privacy</span></h3><p>Finds PII in text and masks it, using a fine-tuned model plus rules. Run it as a library or a self-hosted REST service.</p><span class="more">View repo</span></a>
+      <a class="card" href="https://github.com/mohamedabubasith/basivo-auth"><h3>basivo-auth <span class="tag">security</span></h3><p>Scaffolds production-hardened FastAPI authentication services, and keeps every generated project patchable from one template.</p><span class="more">View repo</span></a>
+      <a class="card" href="https://github.com/mohamedabubasith/basivo-coding"><h3>basivo-coding <span class="tag">agents</span></h3><p>A coding platform that runs on the LLM you prefer.</p><span class="more">View repo</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/icon.png" alt="">Basivo</a>
+    <div class="links">
+      <a href="https://github.com/mohamedabubasith">GitHub</a>
+    </div>
+    <span>&copy; 2026 Basivo</span>
+  </div>
+</footer>
+
+</body>
+</html>
