@@ -52,8 +52,12 @@ section{padding:clamp(96px,12vw,160px) 0}
 /* nav */
 nav{position:absolute;inset:0 0 auto;z-index:5}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:88px}
-.brand{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:400;letter-spacing:-.02em;text-decoration:none}
-.brand img{width:34px;height:34px;border-radius:9px}
+.brand{display:flex;align-items:center;gap:10px;min-height:44px;font-size:26px;text-decoration:none}
+.brand svg{width:34px;height:34px;flex:none}
+/* wordmark: Geist light, the i dotted with the violet square from the mark */
+.wm{font-weight:300;letter-spacing:-.045em;line-height:1;white-space:nowrap}
+.wm .i{position:relative;display:inline-block}
+.wm .dot{position:absolute;left:50%;top:.1em;width:.15em;height:.15em;transform:translateX(-50%);background:var(--violet)}
 nav ul{display:flex;gap:8px;list-style:none}
 nav ul a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;text-decoration:none;color:var(--muted-paper);transition:color .2s}
 nav ul a:hover{color:var(--text-paper)}
@@ -87,7 +91,7 @@ nav ul a:hover{color:var(--text-paper)}
   .hero{display:block;padding-top:120px}
   .hero-run{position:static;margin-top:32px;display:block}
 }
-@media (max-width:520px){.receipt{left:0;width:250px}.phone{width:190px;height:350px}.card-tag{display:none}}
+@media (max-width:520px){.desk{height:380px;margin-top:24px}.receipt{left:50%;width:260px;margin-left:-130px;transform:rotate(-5deg)}.phone,.card-tag{display:none}}
 
 /* 2 proof */
 .proof{text-align:center}
