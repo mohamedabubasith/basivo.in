@@ -8,6 +8,8 @@ const profiles = [
   { label: "Hugging Face", handle: "abubasith86", href: "https://huggingface.co/abubasith86" },
 ];
 
+const stack = ["OpenAI", "Anthropic", "Bedrock", "AgentCore", "Strands", "LangChain", "LangGraph", "MCP", "RAG", "pgvector"];
+
 export default function About() {
   return (
     <section className="about" id="about">
@@ -19,7 +21,11 @@ export default function About() {
             I build production-grade Gen AI systems, from agents and RAG to voice-to-voice conversational agents.
             Basivo is where I open-source the tools: the Claude Code plugins and the developer tools.
           </p>
-          <p className="mono stack">OpenAI · Anthropic · Bedrock · AgentCore · Strands · LangChain · LangGraph · MCP · RAG · pgvector</p>
+          <ul className="stack" aria-label="Stack">
+            {stack.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
         </div>
         <ul className="rv">
           {profiles.map((p) => (

@@ -119,7 +119,8 @@ nav ul a:hover{color:var(--text-paper)}
 .about .label{color:var(--violet-soft)}
 .about h2{font-size:clamp(40px,5vw,64px);margin:18px 0 24px}
 .about p{max-width:46ch}
-.about .stack{margin-top:24px;color:var(--muted-paper);line-height:1.8}
+.about ul.stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;max-width:46ch;border-top:0}
+.about .stack li{font:400 13px/1 var(--mono);letter-spacing:.02em;color:var(--muted-paper);padding:8px 12px;border:1px solid var(--ink-line);border-radius:999px}
 .about ul{list-style:none;border-top:1px solid var(--ink-line)}
 .about li a{display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:1px solid var(--ink-line);text-decoration:none;font-size:19px;transition:color .2s}
 .about li a:hover{color:var(--violet-soft)}
