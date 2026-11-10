@@ -21,6 +21,33 @@
   --sans:var(--font-geist-sans),system-ui,-apple-system,sans-serif;
   --mono:var(--font-geist-mono),ui-monospace,Menlo,monospace;
 }
+/* Light: the ink sections turn to warm daylight, the paper panels to white. The terminal
+   and code blocks stay dark: they are terminals. */
+:root[data-theme="light"]{
+  --ink:#f6f2ea; --ink-2:#eee8dd; --ink-line:#ddd4c4;
+  --paper:#fffdf9; --paper-2:#f5f0e7; --paper-line:#e6ddcd;
+  --text-paper:#15131a; --muted-paper:#5f5a52;
+  --violet-soft:#5a37f0;
+}
+:root[data-theme="light"] .hero{background:radial-gradient(70% 60% at 72% 30%,#ece4fb 0%,var(--ink) 70%)}
+:root[data-theme="light"] .close{background:radial-gradient(60% 70% at 50% 100%,#e2d8ff 0%,var(--ink) 70%)}
+:root[data-theme="light"] .btn-light:hover{background:#000}
+:root[data-theme="light"] .btn-ghost:hover{background:rgba(90,55,240,.07)}
+:root[data-theme="light"] .code{background:#0e0d12}
+body{transition:background-color .4s,color .4s}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-new(root){z-index:2}
+
+/* the theme switch */
+.theme{position:relative;flex:none;width:44px;height:44px;margin-left:8px;border-radius:999px;display:grid;place-items:center;overflow:hidden;cursor:pointer;
+  background:transparent;color:var(--text-paper);border:1px solid var(--ink-line);transition:border-color .2s}
+.theme:hover{border-color:var(--violet-soft)}
+.theme svg{position:absolute;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .35s}
+.theme .sun{transform:rotate(90deg) scale(.4);opacity:0}
+:root[data-theme="light"] .theme .sun{transform:none;opacity:1}
+:root[data-theme="light"] .theme .moon{transform:rotate(-90deg) scale(.4);opacity:0}
+@media (prefers-reduced-motion:reduce){.theme svg,body{transition:none}}
+
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--ink);color:var(--text-paper);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
@@ -59,7 +86,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:8
 .wm{font-weight:300;letter-spacing:-.045em;line-height:1;white-space:nowrap}
 .wm .i{position:relative;display:inline-block}
 .wm .dot{position:absolute;left:50%;top:.1em;width:.15em;height:.15em;transform:translateX(-50%);background:var(--violet)}
-nav ul{display:flex;gap:8px;list-style:none}
+nav ul{display:flex;gap:8px;list-style:none;margin-left:auto}
 nav ul a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;text-decoration:none;color:var(--muted-paper);transition:color .2s}
 nav ul a:hover{color:var(--text-paper)}
 @media (max-width:720px){nav ul li:not(:last-child){display:none}}

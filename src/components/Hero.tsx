@@ -1,6 +1,7 @@
 import Brand from "./Brand";
 import { links, nav } from "@/content";
 import Terminal from "./Terminal";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Hero() {
   return (
@@ -13,6 +14,7 @@ export default function Hero() {
               <li key={n.label}><a href={n.href}>{n.label}</a></li>
             ))}
           </ul>
+          <ThemeToggle />
         </div>
       </nav>
       <div className="wrap hero-grid">

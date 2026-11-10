@@ -38,6 +38,11 @@ run receipt, $0.09 proof, outputs gallery or Orch demo media. Do not add any bac
 Look & feel: ink and warm paper alternating sections, violet `#6d4aff` as the only accent, light-weight grotesk
 headlines, mono labels. No gradient text, no glow, no blobs.
 
+Dark is the default. A sun/moon switch in the nav (`src/components/ThemeToggle.tsx`) turns on a light theme, which is
+only token overrides under `:root[data-theme="light"]` in `globals.css`; the switch animates as a circle from the
+button (View Transitions), and the choice is kept in localStorage (`basivo-theme`). New colours go through the tokens
+so both themes get them.
+
 
 ## Reference UI — LAW
 

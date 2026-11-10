@@ -33,6 +33,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         {/* lets CSS hide .rv only when JS will reveal it */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* the theme chosen with the switch, set before the first paint so it never flashes */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "try{var t=localStorage.getItem('basivo-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}",
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>
