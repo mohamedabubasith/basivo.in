@@ -27,7 +27,10 @@ One page, four sections, top to bottom. Basivo Orch is NOT on this site: no Orch
 run receipt, $0.09 proof, outputs gallery or Orch demo media. Do not add any back.
 
 - **Hero**: "Open-source tools for AI engineers.", CTAs to the plugins and GitHub.
-- **Plugins**: violet panel with install commands, grid of six plugins (text only), row of three tools.
+- **Plugins**: violet panel with install commands, grid of the plugins (text only), row of tools. Both lists are
+  read from GitHub in `src/catalog.ts`, never typed in: plugins from `basivo-plugins/.claude-plugin/marketplace.json`,
+  tools from public repos tagged with the topic `basivo-tool`. Refreshed hourly. To list a tool, add the topic to its
+  repo; a private repo is never listed.
 - **About**: name, title, short bio, stack line, profile links (Portfolio, LinkedIn, GitHub, Medium, Hugging Face).
   No email unless asked.
 - **Closing**: "Install one plugin and try it." CTA to the plugin marketplace, then the footer.
