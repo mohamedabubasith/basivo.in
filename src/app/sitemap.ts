@@ -4,7 +4,8 @@ import type { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://basivo.in",
+      // With the slash: the exact URL Google indexes, so Search Console ties the two together.
+      url: "https://basivo.in/",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
